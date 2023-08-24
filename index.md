@@ -34,17 +34,30 @@ Hello welcome to my blog! My name is Ishan Cornick and I am 15 years old. I enjo
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9_KeFKnhGqU?si=2l-nJsYCqYsgawQb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+
+
+## Shortcuts
+
+[Canvas](https://poway.instructure.com)
+
+[Studentvue](https://launchpad.classlink.com/browsersso/1294609)
+
+[Slack](https://app.slack.com/client/TUDAF53UJ/CUS8E3M6Z)
+
+[Collegeboard](https://account.collegeboard.org/login/login?DURL=https://apclassroom.collegeboard.org/7/assignments?status=assigned)
+
+
 ## HACKS
 
 During my time setting up my wesbite/blog there were somethings that I wished I knew before I started.
 
 
-## Doodle Jump
+## Pong Game Code
 
-<https://gist.github.com/straker/b96a4a68bd6d79cf75a833d98a2b654f>
+[Credit](<!https://gist.github.com/straker/81b59eecf70da93af396f963596dfdc5>)
 <html>
 <head>
-  <title>Basic Doodle Jump HTML Game</title>
+  <title>Basic Pong HTML Game</title>
   <meta charset="UTF-8">
   <style>
   html, body {
@@ -53,212 +66,185 @@ During my time setting up my wesbite/blog there were somethings that I wished I 
   }
 
   body {
+    background: black;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-
-  canvas {
-    border: 1px solid black;
-  }
   </style>
 </head>
 <body>
-<canvas width="375" height="667" id="game"></canvas>
+<canvas width="750" height="585" id="game"></canvas>
 <script>
 const canvas = document.getElementById('game');
 const context = canvas.getContext('2d');
+const grid = 15;
+const paddleHeight = grid * 5; // 80
+const maxPaddleY = canvas.height - grid - paddleHeight;
 
-// width and height of each platform and where platforms start
-const platformWidth = 65;
-const platformHeight = 20;
-const platformStart = canvas.height - 50;
+var paddleSpeed = 6;
+var ballSpeed = 5;
 
-// player physics
-const gravity = 0.33;
-const drag = 0.3;
-const bounceVelocity = -12.5;
+const leftPaddle = {
+  // start in the middle of the game on the left side
+  x: grid * 2,
+  y: canvas.height / 2 - paddleHeight / 2,
+  width: grid,
+  height: paddleHeight,
 
-// minimum and maximum vertical space between each platform
-let minPlatformSpace = 15;
-let maxPlatformSpace = 20;
-
-// information about each platform. the first platform starts in the
-// bottom middle of the screen
-let platforms = [{
-  x: canvas.width / 2 - platformWidth / 2,
-  y: platformStart
-}];
-
-// get a random number between the min (inclusive) and max (exclusive)
-function random(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-// fill the initial screen with platforms
-let y = platformStart;
-while (y > 0) {
-  // the next platform can be placed above the previous one with a space
-  // somewhere between the min and max space
-  y -= platformHeight + random(minPlatformSpace, maxPlatformSpace);
-
-  // a platform can be placed anywhere 25px from the left edge of the canvas
-  // and 25px from the right edge of the canvas (taking into account platform
-  // width).
-  // however the first few platforms cannot be placed in the center so
-  // that the player will bounce up and down without going up the screen
-  // until they are ready to move
-  let x;
-  do {
-    x = random(25, canvas.width - 25 - platformWidth);
-  } while (
-    y > canvas.height / 2 &&
-    x > canvas.width / 2 - platformWidth * 1.5 &&
-    x < canvas.width / 2 + platformWidth / 2
-  );
-
-  platforms.push({ x, y });
-}
-
-// the doodle jumper
-const doodle = {
-  width: 40,
-  height: 60,
-  x: canvas.width / 2 - 20,
-  y: platformStart - 60,
-
-  // velocity
-  dx: 0,
+  // paddle velocity
   dy: 0
 };
+const rightPaddle = {
+  // start in the middle of the game on the right side
+  x: canvas.width - grid * 3,
+  y: canvas.height / 2 - paddleHeight / 2,
+  width: grid,
+  height: paddleHeight,
 
-// keep track of player direction and actions
-let playerDir = 0;
-let keydown = false;
-let prevDoodleY = doodle.y;
+  // paddle velocity
+  dy: 0
+};
+const ball = {
+  // start in the middle of the game
+  x: canvas.width / 2,
+  y: canvas.height / 2,
+  width: grid,
+  height: grid,
+
+  // keep track of when need to reset the ball position
+  resetting: false,
+
+  // ball velocity (start going to the top-right corner)
+  dx: ballSpeed,
+  dy: -ballSpeed
+};
+
+// check for collision between two objects using axis-aligned bounding box (AABB)
+// @see https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+function collides(obj1, obj2) {
+  return obj1.x < obj2.x + obj2.width &&
+         obj1.x + obj1.width > obj2.x &&
+         obj1.y < obj2.y + obj2.height &&
+         obj1.y + obj1.height > obj2.y;
+}
 
 // game loop
 function loop() {
   requestAnimationFrame(loop);
   context.clearRect(0,0,canvas.width,canvas.height);
 
-  // apply gravity to doodle
-  doodle.dy += gravity;
+  // move paddles by their velocity
+  leftPaddle.y += leftPaddle.dy;
+  rightPaddle.y += rightPaddle.dy;
 
-  // if doodle reaches the middle of the screen, move the platforms down
-  // instead of doodle up to make it look like doodle is going up
-  if (doodle.y < canvas.height / 2 && doodle.dy < 0) {
-    platforms.forEach(function(platform) {
-      platform.y += -doodle.dy;
-    });
-
-    // add more platforms to the top of the screen as doodle moves up
-    while (platforms[platforms.length - 1].y > 0) {
-      platforms.push({
-        x: random(25, canvas.width - 25 - platformWidth),
-        y: platforms[platforms.length - 1].y - (platformHeight + random(minPlatformSpace, maxPlatformSpace))
-      })
-
-      // add a bit to the min/max platform space as the player goes up
-      minPlatformSpace += 0.5;
-      maxPlatformSpace += 0.5;
-
-      // cap max space
-      maxPlatformSpace = Math.min(maxPlatformSpace, canvas.height / 2);
-    }
+  // prevent paddles from going through walls
+  if (leftPaddle.y < grid) {
+    leftPaddle.y = grid;
   }
-  else {
-    doodle.y += doodle.dy;
+  else if (leftPaddle.y > maxPaddleY) {
+    leftPaddle.y = maxPaddleY;
   }
 
-  // only apply drag to horizontal movement if key is not pressed
-  if (!keydown) {
-    if (playerDir < 0) {
-      doodle.dx += drag;
-
-      // don't let dx go above 0
-      if (doodle.dx > 0) {
-        doodle.dx = 0;
-        playerDir = 0;
-      }
-    }
-    else if (playerDir > 0) {
-      doodle.dx -= drag;
-
-      if (doodle.dx < 0) {
-        doodle.dx = 0;
-        playerDir = 0;
-      }
-    }
+  if (rightPaddle.y < grid) {
+    rightPaddle.y = grid;
+  }
+  else if (rightPaddle.y > maxPaddleY) {
+    rightPaddle.y = maxPaddleY;
   }
 
-  doodle.x += doodle.dx;
+  // draw paddles
+  context.fillStyle = 'white';
+  context.fillRect(leftPaddle.x, leftPaddle.y, leftPaddle.width, leftPaddle.height);
+  context.fillRect(rightPaddle.x, rightPaddle.y, rightPaddle.width, rightPaddle.height);
 
-  // make doodle wrap the screen
-  if (doodle.x + doodle.width < 0) {
-    doodle.x = canvas.width;
+  // move ball by its velocity
+  ball.x += ball.dx;
+  ball.y += ball.dy;
+
+  // prevent ball from going through walls by changing its velocity
+  if (ball.y < grid) {
+    ball.y = grid;
+    ball.dy *= -1;
   }
-  else if (doodle.x > canvas.width) {
-    doodle.x = -doodle.width;
+  else if (ball.y + grid > canvas.height - grid) {
+    ball.y = canvas.height - grid * 2;
+    ball.dy *= -1;
   }
 
-  // draw platforms
-  context.fillStyle = 'green';
-  platforms.forEach(function(platform) {
-    context.fillRect(platform.x, platform.y, platformWidth, platformHeight);
+  // reset ball if it goes past paddle (but only if we haven't already done so)
+  if ( (ball.x < 0 || ball.x > canvas.width) && !ball.resetting) {
+    ball.resetting = true;
 
-    // make doodle jump if it collides with a platform from above
-    if (
-      // doodle is falling
-      doodle.dy > 0 &&
+    // give some time for the player to recover before launching the ball again
+    setTimeout(() => {
+      ball.resetting = false;
+      ball.x = canvas.width / 2;
+      ball.y = canvas.height / 2;
+    }, 400);
+  }
 
-      // doodle was previous above the platform
-      prevDoodleY + doodle.height <= platform.y &&
+  // check to see if ball collides with paddle. if they do change x velocity
+  if (collides(ball, leftPaddle)) {
+    ball.dx *= -1;
 
-      // doodle collides with platform
-      // (Axis Aligned Bounding Box [AABB] collision check)
-      doodle.x < platform.x + platformWidth &&
-      doodle.x + doodle.width > platform.x &&
-      doodle.y < platform.y + platformHeight &&
-      doodle.y + doodle.height > platform.y
-    ) {
-      // reset doodle position so it's on top of the platform
-      doodle.y = platform.y - doodle.height;
-      doodle.dy = bounceVelocity;
-    }
-  });
+    // move ball next to the paddle otherwise the collision will happen again
+    // in the next frame
+    ball.x = leftPaddle.x + leftPaddle.width;
+  }
+  else if (collides(ball, rightPaddle)) {
+    ball.dx *= -1;
 
-  // draw doodle
-  context.fillStyle = 'yellow';
-  context.fillRect(doodle.x, doodle.y, doodle.width, doodle.height);
+    // move ball next to the paddle otherwise the collision will happen again
+    // in the next frame
+    ball.x = rightPaddle.x - ball.width;
+  }
 
-  prevDoodleY = doodle.y;
+  // draw ball
+  context.fillRect(ball.x, ball.y, ball.width, ball.height);
 
-  // remove any platforms that have gone offscreen
-  platforms = platforms.filter(function(platform) {
-    return platform.y < canvas.height;
-  })
+  // draw walls
+  context.fillStyle = 'lightgrey';
+  context.fillRect(0, 0, canvas.width, grid);
+  context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
+
+  // draw dotted line down the middle
+  for (let i = grid; i < canvas.height - grid; i += grid * 2) {
+    context.fillRect(canvas.width / 2 - grid / 2, i, grid, grid);
+  }
 }
 
-// listen to keyboard events to move doodle
+// listen to keyboard events to move the paddles
 document.addEventListener('keydown', function(e) {
-  // left arrow key
-  if (e.which === 37) {
-    keydown = true;
-    playerDir = -1;
-    doodle.dx = -3;
 
+  // up arrow key
+  if (e.which === 38) {
+    rightPaddle.dy = -paddleSpeed;
   }
-  // right arrow key
-  else if (e.which === 39) {
-    keydown = true;
-    playerDir = 1;
-    doodle.dx = 3;
+  // down arrow key
+  else if (e.which === 40) {
+    rightPaddle.dy = paddleSpeed;
+  }
+
+  // w key
+  if (e.which === 87) {
+    leftPaddle.dy = -paddleSpeed;
+  }
+  // a key
+  else if (e.which === 83) {
+    leftPaddle.dy = paddleSpeed;
   }
 });
 
+// listen to keyboard events to stop the paddle if key is released
 document.addEventListener('keyup', function(e) {
-  keydown = false;
+  if (e.which === 38 || e.which === 40) {
+    rightPaddle.dy = 0;
+  }
+
+  if (e.which === 83 || e.which === 87) {
+    leftPaddle.dy = 0;
+  }
 });
 
 // start the game
