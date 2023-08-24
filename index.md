@@ -71,79 +71,33 @@ My second problems was with when I forked the wrong directory. After talking to 
 
 My third and finally problem was that my website wasn't big enough to hold all my code and writing. 
 
-## Pong Game Code
+## Calculator
 
-[Credit](<!https://www.geeksforgeeks.org/html-calculator/>)
+[Credit](<!https://www.wikihow.com/Create-a-Calculator-Using-HTML>)
 
 <html>
-
 <head>
-	<title>HTML Calculator</title>
-
-	<!-- For styling -->
-	<style>
-		table {
-			border: 1px solid black;
-			margin-left: auto;
-			margin-right: auto;
-		}
-		
-		input[type="button"] {
-			width: 100%;
-			padding: 20px 40px;
-			background-color: green;
-			color: white;
-			font-size: 24px;
-			font-weight: bold;
-			border: none;
-			border-radius: 5px;
-		}
-		
-		input[type="text"] {
-			padding: 20px 30px;
-			font-size: 24px;
-			font-weight: bold;
-			border: none;
-			border-radius: 5px;
-			border: 2px solid black;
-		}
-	</style>
+<title>HTML Calculator</title>
 </head>
+<body bgcolor= "#000000" text= "gold">
+<form name="calculator" >
+<input type="button" value="1" onClick="document.calculator.ans.value+='1'">
+<input type="button" value="2" onClick="document.calculator.ans.value+='2'">
+<input type="button" value="3" onClick="document.calculator.ans.value+='3'"><br>
+<input type="button" value="4" onClick="document.calculator.ans.value+='4'">
+<input type="button" value="5" onClick="document.calculator.ans.value+='5'">
+<input type="button" value="6" onClick="document.calculator.ans.value+='6'">
+<input type="button" value="7" onClick="document.calculator.ans.value+='7'"><br>
+<input type="button" value="8" onClick="document.calculator.ans.value+='8'">
+<input type="button" value="9" onClick="document.calculator.ans.value+='9'">
+<input type="button" value="-" onClick="document.calculator.ans.value+='-'">
+<input type="button" value="+" onClick="document.calculator.ans.value+='+'"><br>
+<input type="button" value="*" onClick="document.calculator.ans.value+='*'">
+<input type="button" value="/" onClick="document.calculator.ans.value+='/'">
 
-<body>
-
-	<!-- Create table -->
-	<table id="calcu">
-		<tr>
-			<td colspan="3">
-				<input type="text" id="result">
-			</td>
-			<td><input type="button" value="c"></td>
-		</tr>
-
-		<tr>
-			<td><input type="button" value="1"></td>
-			<td><input type="button" value="2"></td>
-			<td><input type="button" value="3"></td>
-			<td><input type="button" value="/"></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="4"></td>
-			<td><input type="button" value="5"></td>
-			<td><input type="button" value="6"></td>
-			<td><input type="button" value="*"></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="7"></td>
-			<td><input type="button" value="8"></td>
-			<td><input type="button" value="9"></td>
-			<td><input type="button" value="-"></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="0"></td>
-			<td><input type="button" value="."></td>
-			<td><input type="button" value="="></td>
-			<td><input type="button" value="+"></td>
-		</tr>
-	</table>
+<input type="button" value="0" onClick="document.calculator.ans.value+='0'">
+<input type="reset" value="Reset">
+<input type="button" value="=" onClick="document.calculator.ans.value=eval(document.calculator.ans.value)">
+<br>Solution is <input type="textfield" name="ans" value="">
+</form>
 </body>
