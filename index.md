@@ -28,7 +28,7 @@ Hello welcome to my blog! My name is Ishan Cornick and I am 15 years old. I enjo
 
 5: My favorite celebrity is DJ Khaled.
 
-<div class="tenor-gif-embed" data-postid="21764359" data-share-method="host" data-aspect-ratio="0.99375" data-width="100%"><a href="https://tenor.com/view/dj-khaled-dancing-dance-gif-21764359">Dj Khaled GIF</a>from <a href="https://tenor.com/search/dj-gifs">Dj GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+<div class="tenor-gif-embed" data-postid="21764359" data-share-method="host" data-aspect-ratio="0.99375" data-width="80%"><a href="https://tenor.com/view/dj-khaled-dancing-dance-gif-21764359">Dj Khaled GIF</a>from <a href="https://tenor.com/search/dj-gifs">Dj GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
 6: My favorite youtuber. He helps me decompress and relax with laughter.
 
