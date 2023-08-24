@@ -28,7 +28,7 @@ Hello welcome to my blog! My name is Ishan Cornick and I am 15 years old. I enjo
 
 5: My favorite celebrity is DJ Khaled.
 
-![Alt text](<images/Screenshot 2023-08-23 at 6.29.14 PM.png>)
+<iframe src="https://giphy.com/embed/l3zoTAbMu27n6zrH2" width="480" height="242" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/key-dj-khaled-major-l3zoTAbMu27n6zrH2">via GIPHY</a></p>
 
 6: My favorite youtuber. He helps me decompress and relax with laughter.
 
