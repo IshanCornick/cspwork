@@ -54,10 +54,15 @@ Hello welcome to my blog! My name is Ishan Cornick and I am 15 years old. I enjo
 During my time setting up my wesbite/blog there were somethings that I wished I knew before I started.
 
 One of the things I wish I knew before I started was a list of some commands like:
+
 cd - change directory
+
   Ex: cd student
+
 make - launchs local host
+
 make clean = stops and launchs local host to "clean it"
+
 ls - shows what files are in the directory
 
 Another thing I wish I knew before I started was that when you type code it is automaticly added to your local host. If you want it on your github you need to commit and sync it. 
