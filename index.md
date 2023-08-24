@@ -62,6 +62,15 @@ Another thing I wish I knew before I started was that when you type code it is a
 
 The final thing I wish I knew was that for gifs and videos you need a embeaded link and that a normal link doesn't work.
 
+
+## Problems I came across
+
+One of my first problems was getting a computer. When I first started this class I had only a chromebook, when I realized a macbook would make everything much easier I ordered one. A couple days later it came but now I had much less time to work on my blog.
+
+My second problems was with when I forked the wrong directory. After talking to a helper I realized this was a problem and I instead made a copy to fix this.
+
+My third and finally problem was that my website wasn't big enough to hold all my code and writing. 
+
 ## Pong Game Code
 
 [Credit](<!https://gist.github.com/straker/81b59eecf70da93af396f963596dfdc5>)
