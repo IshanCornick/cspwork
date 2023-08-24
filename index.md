@@ -16,7 +16,7 @@ Hello welcome to my blog! My name is Ishan Cornick and I am 15 years old. I enjo
 
 2: My favorite food is steak.
 
-![Alt text](<images/Reel_and_Brand_-_September_2021_-_Sarah_Stierch_05.jpg>)
+<div class="tenor-gif-embed" data-postid="22080224" data-share-method="host" data-aspect-ratio="1" data-width="100%"><a href="https://tenor.com/view/dj-khaled-food-meat-beating-funny-gif-22080224">Dj Khaled Food GIF</a>from <a href="https://tenor.com/search/dj+khaled-gifs">Dj Khaled GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
 3: I lived in Masschusetts but moved here when I was 9.
 
