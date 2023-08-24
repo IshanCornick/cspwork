@@ -69,7 +69,7 @@ One of my first problems was getting a computer. When I first started this class
 
 My second problems was with when I forked the wrong directory. After talking to a helper I realized this was a problem and I instead made a copy to fix this.
 
-My third and finally problem was that my website wasn't big enough to hold all my code and writing. 
+My third and finally problem was that my website wasn't big enough to hold all my code and writing. I realized the problem was my game that was messing with the sizing. I fixed this by instead using a calculator.
 
 ## Calculator
 
