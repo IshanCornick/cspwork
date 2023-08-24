@@ -73,7 +73,7 @@ My third and finally problem was that my website wasn't big enough to hold all m
 
 ## Calculator
 
-[Credit](<!https://www.wikihow.com/Create-a-Calculator-Using-HTML>)
+[Credit](https://www.wikihow.com/Create-a-Calculator-Using-HTML)
 
 <html>
 <head>
